@@ -23,23 +23,32 @@ var budgetController = (function() {
 	  	}
 	  }
 
+
+	  //Create new Id based on income or expense
 	  return {
 	  	addItem : function(type,des,val){
-	  		
 	  		var newItem;
 
-	  		ID = 0;
+	  		 //Create new Id
+			  if(data.allItems[type].length > 0){
+			  	ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
+			  } else {
+			  	ID = 0;
+			  }
 
 	  		if(type === 'inc'){
-	  		newItem = new Income(ID,des,value);
+	  		newItem = new Income(ID,des,val);
 	  		}
-	  		else newItem = new Expense(ID,des,value);	
-
+	  		else { newItem = new Expense(ID,des,val);	}
+	  		//Push into datastructure
 	  		data.allItems[type].push(newItem);
-	  		
-	  		return newItem;
 
-	  		}
+	  		//return the new element 	
+	  		return newItem;
+	  		},
+	  	testing : function (){
+	  		console.log(data.allItems);
+	  	}
 	  };
 
 })();
@@ -82,9 +91,7 @@ var controller = (function(budgetCtrl,UICtrl) {
 
 		document.addEventListener('keypress',function(event){
 			if(event.keyCode === 13){
-				ctrlAddItem();
-				console.log('mohit');
-				}
+				ctrlAddItem();				}
 			});
 	}  
 	
@@ -94,8 +101,10 @@ var controller = (function(budgetCtrl,UICtrl) {
 	var ctrlAddItem = function(){
 		//get input data
 		var input = UICtrl.getInput();
-		console.log(input);
+
 		//add item to the budget controller
+		var newItem = budgetCtrl.addItem(input.type,input.desc,input.value);
+
 		//display it on the ui
 		//calculate the budget
 		//display the budget
