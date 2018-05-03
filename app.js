@@ -1,3 +1,21 @@
+/*
+I am defining 1 controller, 
+			 1 budgetController(Data) 
+			 	--all data & datatypes(income,expense, constructors) are defined under this
+			 	--compute id here
+			 	-- compute budget here
+			 
+			 1 UI Controller(for UI)
+				 --responsible for retrieving data
+				 --responsible for posting data back in the UI
+
+
+
+*/
+
+
+
+
 //Module2
 var budgetController = (function() {
 	  var Expense = function(id,description,value){ //Function Constructor
@@ -37,9 +55,12 @@ var budgetController = (function() {
 			  }
 
 	  		if(type === 'inc'){
-	  		newItem = new Income(ID,des,val);
+	  			newItem = new Income(ID,des,val);
 	  		}
-	  		else if(type === 'exp'){ newItem = new Expense(ID,des,val);	}
+	  		else if(type === 'exp'){ 
+	  			newItem = new Expense(ID,des,val);	
+	  			console.log('expense' + ID);
+	  			}
 	  		//Push into datastructure
 	  		data.allItems[type].push(newItem);
 
@@ -114,13 +135,11 @@ var controller = (function(budgetCtrl,UICtrl) {
 
 	var setupEventListeners = function(){
 		document.querySelector(DOM.inputButton).addEventListener('click',ctrlAddItem); //ctrlAddItem is a callback function
-
 		document.addEventListener('keypress',function(event){
 			if(event.keyCode === 13){
-				ctrlAddItem();				}
+				ctrlAddItem();}
 			});
-	}  
-	
+		}  
 
 	var DOM = UICtrl.getDOMstrings();
 
