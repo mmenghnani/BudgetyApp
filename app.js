@@ -85,7 +85,7 @@ var UIController = (function() {
 				}
 
 				else if(type === 'exp'){
-					element = DOMstrings.incomeContainer;
+					element = DOMstrings.expenseContainer;
 					html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
 
 				}
@@ -133,7 +133,6 @@ var controller = (function(budgetCtrl,UICtrl) {
 
 		//display it on the ui
 		UICtrl.addListItem(newItem,input.type);
-
 		//calculate the budget
 		//display the budget
 	};
