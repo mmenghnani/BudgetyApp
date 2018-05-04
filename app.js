@@ -65,7 +65,6 @@ var budgetController = (function() {
             }
             //Push into datastructure
             data.allItems[type].push(newItem);
-
             //return the new element 	
             return newItem;
         },
@@ -80,7 +79,7 @@ var budgetController = (function() {
 
             var budget = data.totals['inc'] - data.totals['exp'];
 
-            return budget;            
+            return [budget,data.totals];            
         }
     };
 
@@ -98,7 +97,10 @@ var UIController = (function() {
         inputButton: '.add__btn',
         incomeContainer: '.income__list',
         expenseContainer: '.expenses__list',
-        delete: '.item__delete'
+        delete: '.item__delete',
+        budgetIncomeContainer : '.budget__income--value',
+        budgetExpenseContainer : '.budget__expenses--value',
+        budgetValue : '.budget__value',
     }
 
     return {
@@ -144,6 +146,24 @@ var UIController = (function() {
 
         getDOMstrings: function() {
             return DOMstrings;
+        },
+
+        addBudgetItems : function(obj){
+            var html, newhtml, element;
+            // if(type === 'inc'){
+            //     element = DOMstrings.budgetIncomeContainer;
+            //     html =  '';
+
+            // } else if (type === 'exp'){
+            //     elemen = DOMstrings.budgetExpenseContainer;
+            // }
+        },
+
+        addBudget : function(value){
+            var html,element;
+            element = DOMstrings.budgetValue;
+            html = value;
+            document.querySelector(element).textContent = html;
         }
     }
 })();
@@ -182,9 +202,20 @@ var controller = (function(budgetCtrl, UICtrl) {
             //display it on the ui
             UICtrl.addListItem(newItem, input.type);
             UICtrl.clearField();
-            console.log(updateBudget());
+
             //calculate the budget
+           // console.log(updateBudget());
+
+            var budget = updateBudget()[0];
+
             //display the budget
+            UICtrl.addBudget(budget);
+
+            var budgetItems = updateBudget()[1];
+            console.log(budgetItems.exp);
+
+            UICtrl.addBudgetItems(budgetItems);
+
         }
     };
 
