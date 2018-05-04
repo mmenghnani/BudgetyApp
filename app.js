@@ -157,19 +157,10 @@ var UIController = (function() {
         },
 
         addBudget : function(obj){
-            // var html,element;
-            // element = DOMstrings.budgetValue;
-            // html = obj.budget;
-            // document.querySelector(element).textContent = html;
-            // element = DOMstrings.budgetIncomeContainer;
-            // html = obj.totalInc;
-            // document.querySelector(element).textContent = html;
-            // element = DOMstrings.budgetExpenseContainer;
-            // html = obj.totalExp;
-            // document.querySelector(element).textContent = html;
-
-
-            
+        
+            document.querySelector(DOMstrings.budgetValue).textContent = obj.budget;
+            document.querySelector(DOMstrings.budgetIncomeContainer).textContent = obj.totalInc;
+            document.querySelector(DOMstrings.budgetExpenseContainer).textContent = obj.totalExp;
 
 
         }
