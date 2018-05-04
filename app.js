@@ -33,15 +33,16 @@ var budgetController = (function() {
         },
         totals: {
             exp: 0,
-            inc: 0
+            inc: 0 
         }
     }
 
-    var computeIncome = function() {
-        for (var i = 0; i < data.allItems.exp.length; i++) {
-            data.totals.exp += data.allItems.exp.value;
-            return data.allItems.exp.length;
-        }
+    var computeTotal = function(type) {
+        var sum = 0 ;
+        data.allItems[type].forEach(function(cur){
+            sum += cur.value;
+        });
+        data.totals[type] = sum;
     }
 
 
@@ -73,8 +74,13 @@ var budgetController = (function() {
             console.log(data.allItems);
         },
 
-        budget: function() {
-            console.log(computeIncome());
+        calculateBudget: function() {
+            computeTotal('exp');
+            computeTotal('inc');
+
+            var budget = data.totals['inc'] - data.totals['exp'];
+
+            return budget;            
         }
     };
 
@@ -158,7 +164,9 @@ var controller = (function(budgetCtrl, UICtrl) {
 
     var updateBudget = function() {
         // calculate the budget 
+        var budget = budgetCtrl.calculateBudget();
 
+        return budget;
         // return the budget 
 
         // display the budget in the UI
@@ -174,7 +182,7 @@ var controller = (function(budgetCtrl, UICtrl) {
             //display it on the ui
             UICtrl.addListItem(newItem, input.type);
             UICtrl.clearField();
-            updateBudget();
+            console.log(updateBudget());
             //calculate the budget
             //display the budget
         }
