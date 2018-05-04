@@ -87,7 +87,7 @@ var budgetController = (function() {
                 budget : data.budget,
                 totalInc : data.totals['inc'],
 				totalExp : data.totals['exp'],
-				percentage : data.totals.percentage
+				percentage : data.percentage
 				
             }
         },  
@@ -164,8 +164,12 @@ var UIController = (function() {
             document.querySelector(DOMstrings.budgetValue).textContent = obj.budget;
             document.querySelector(DOMstrings.budgetIncomeContainer).textContent = obj.totalInc;
 			document.querySelector(DOMstrings.budgetExpenseContainer).textContent = obj.totalExp;
-			document.querySelector(DOMstrings.budgetExpensePercentage).textContent = obj.percentage;
-			
+			if(obj.percentage == -1 || obj.totalInc == 0 || obj.totalExp == 0){
+				document.querySelector(DOMstrings.budgetExpensePercentage).textContent = "NA";
+			 }
+			 else {
+				document.querySelector(DOMstrings.budgetExpensePercentage).textContent = (obj.percentage.toFixed(2)) + '%';
+			}
 
 
         }
